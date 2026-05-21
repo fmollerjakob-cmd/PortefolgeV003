@@ -4,6 +4,9 @@
 #include <ctime>
 #include <unistd.h>
 
+#include "Monster.h"
+#include "character.h"
+
 int getRandomBetween(int min, int max)
 {
     return min + rand() % (max - min +1);
@@ -22,11 +25,10 @@ int main()
 
     std::cout << "Enter character name: " << std::endl;
     std::cin >> characterName;
-
+    Character player(characterName);
+    
     //Freendly Mobs
-    std::string playerMonsterName = "Hest";
-    int playerMonsterHp = 9;
-    int playerMonsterStrength = 1;
+    Monster playerMonster("Hest", 9, 1);
 
     //Enemy mobs
     std::string enemyMonsterName = "Weak Goblin";

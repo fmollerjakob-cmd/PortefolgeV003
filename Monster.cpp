@@ -21,7 +21,39 @@ bool Monster::isAlive()
     }
 }
 
+void Monster::takeDamage(int damage)
+{
+    hp -= damage;
+
+    if (hp < 0)
+    {
+        hp = 0;
+    }
+}
+
+void Monster::attack(Monster& enemy)
+{
+    std::cout << name << " attacks " << enemy.getName() << " with " << strength << " damage.\n";
+
+    enemy.takeDamage(strength);
+}
+
 void Monster::print()
 {
     std::cout << name << " HP: " << hp << "/" << maxHp << " Strength: " << strength << std::endl;
+}
+
+std::string Monster::getName()
+{
+    return name;
+}
+
+int Monster::getHp()
+{
+    return hp;
+}
+
+int Monster::getStrength()
+{
+    return strength;
 }
