@@ -7,6 +7,19 @@
 #include "Monster.h"
 #include "character.h"
 
+/*
+
+cd /path/to/your/project
+mkdir -p build
+cd build
+cmake ..
+make
+./PortefolgeV003
+
+*/
+
+
+
 int getRandomBetween(int min, int max)
 {
     return min + rand() % (max - min +1);
@@ -28,53 +41,45 @@ int main()
     Character player(characterName);
     
     //Freendly Mobs
-    Monster playerMonster("Hest", 9, 1);
+    Monster& playerMonster = player.getFirstAliveMonster();
+
 
     //Enemy mobs
-    std::string enemyMonsterName = "Weak Goblin";
-    int enemyMonsterHp = 4;
-    int enemyMonsterStrength = 2;
+    Monster enemyMonster("Weak Goblin", 4, 2);
 
     std::cout << "Character created: " << characterName << std::endl;
-    std::cout << "You have one monster: " << playerMonsterName << std::endl;
+    std::cout << "Your monsters:" << std::endl;
+    player.print();
 
     std::cout << "Battle starts!" << std::endl;
-    std::cout << playerMonsterName << " vs " << enemyMonsterName << std::endl;
-    
+    std::cout << playerMonster.getName() << " vs " << enemyMonster.getName() << std::endl;
+
     int playerTurn = getRandomBetween(0,1);
 
+  
     if (playerTurn)
     {
-        std::cout << playerMonsterName << "'s First turn!" << std::endl;
+        std::cout << playerMonster.getName() << "'s first turn!" << std::endl;
     }
     else
     {
-        std::cout << enemyMonsterName << "'s First turn!" << std::endl;
+        std::cout << enemyMonster.getName() << "'s first turn!" << std::endl;
     }
-    while (playerMonsterHp > 0 && enemyMonsterHp > 0)
+    
+
+    while (playerMonster.isAlive() && enemyMonster.isAlive())
     {
-        std::cout << playerMonsterName << " HP: " << playerMonsterHp << std::endl;
-        std::cout << enemyMonsterName << " HP: " << enemyMonsterHp << std::endl;
+        std::cout << playerMonster.getName() << " HP: " << playerMonster.getHp() << std::endl;
+        std::cout << enemyMonster.getName() << " HP: " << enemyMonster.getHp() << std::endl;
 
         if (playerTurn == 1)
         {
-            enemyMonsterHp = enemyMonsterHp - playerMonsterStrength;
+            playerMonster.attack(enemyMonster);
 
-            std::cout << 
-            playerMonsterName << " attacks with " << 
-            playerMonsterStrength <<
-            " damage!" <<
-            std::endl;
         }
         else
         {
-            playerMonsterHp = playerMonsterHp - enemyMonsterStrength;
-
-            std::cout << 
-            enemyMonsterName << " attacks with " << 
-            enemyMonsterStrength <<
-            " damage!" <<
-            std::endl;
+            enemyMonster.attack(playerMonster);
 
         }
 
@@ -82,7 +87,7 @@ int main()
         playerTurn = playerTurn % 2;
     }
 
-    if (playerMonsterHp > 0)
+    if (playerMonster.isAlive())
     {
         std::cout << "\nYou won!" << std::endl;
     }

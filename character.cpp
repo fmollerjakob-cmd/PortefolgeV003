@@ -56,3 +56,16 @@ Monster& Character::getFirstAliveMonster()
 
     throw std::runtime_error("No alive monsters");
 }
+
+bool Character::hasSpaceForMonster()
+{
+    return monsters.size() < 4;
+}
+
+void Character::replaceMonster(int index, Monster monster)
+{
+    if (index >= 0 && index < monsters.size())
+    {
+        monsters[index] = monster;
+    }
+}
