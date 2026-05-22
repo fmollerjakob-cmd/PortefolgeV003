@@ -69,7 +69,7 @@ void Game::startAdventure()
     }
 
     //Freendly Mobs
-    Monster& playerMonster = player.getFirstAliveMonster();
+    Monster* playerMonster = &player.getFirstAliveMonster();
 
 
     //Enemy mobs
@@ -123,14 +123,14 @@ void Game::startAdventure()
     }
 
     std::cout << "Battle starts!" << std::endl;
-    std::cout << playerMonster.getName() << " vs " << enemyMonster.getName() << std::endl;
+    std::cout << playerMonster->getName() << " vs " << enemyMonster.getName() << std::endl;
 
     int playerTurn = getRandomBetween(0,1);
 
   
     if (playerTurn)
     {
-        std::cout << playerMonster.getName() << "'s first turn!" << std::endl;
+        std::cout << playerMonster->getName() << "'s first turn!" << std::endl;
     }
     else
     {
@@ -138,27 +138,37 @@ void Game::startAdventure()
     }
     
 
-    while (playerMonster.isAlive() && enemyMonster.isAlive())
+    while (playerMonster->isAlive() && enemyMonster.isAlive())
     {
-        std::cout << playerMonster.getName() << " HP: " << playerMonster.getHp() << std::endl;
+        std::cout << playerMonster->getName() << " HP: " << playerMonster->getHp() << std::endl;
         std::cout << enemyMonster.getName() << " HP: " << enemyMonster.getHp() << std::endl;
 
         if (playerTurn == 1)
         {
-            playerMonster.attack(enemyMonster);
+            playerMonster->attack(enemyMonster);
 
         }
         else
         {
-            enemyMonster.attack(playerMonster);
+            //Uses the monster object that the pointer points to
+            enemyMonster.attack(*playerMonster);
 
+        }
+        //This part allows for next friendly monster to be sent into battle if 
+        //friendly monsters are left
+        if (!playerMonster->isAlive() && player.hasAliveMonster())
+        {
+            std::cout << playerMonster->getName() << " was defeated!\n";
+
+            playerMonster = &player.getFirstAliveMonster();
+            std::cout << playerMonster->getName() << " is sent into battle!\n";
         }
 
         playerTurn += 1;
         playerTurn = playerTurn % 2;
     }
 
-    if (playerMonster.isAlive())
+    if (playerMonster->isAlive())
     {
         std::cout << "\nYou won!" << std::endl;
         takeMonster(enemyMonster);
