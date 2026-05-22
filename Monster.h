@@ -34,6 +34,8 @@ public:
     void showItems();
     Item getItem(int index);
     int getItemCount();
+
+    void removeItem(int index);
 };
 
 #endif

@@ -81,7 +81,16 @@ Item Monster::getItem(int a)
     return items[a];
 }
 
+void Monster::removeItem(int index)
+{
+    if (index >= 0 && index < items.size())
+    {
+        items.erase(items.begin() + index);
+    }
+}
+
 int Monster::getItemCount()
 {
     return items.size();
 }
+

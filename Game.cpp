@@ -11,7 +11,6 @@
 
 /*
 Implement:
-items are spend
 items can be viewed
 Better prints
 
@@ -190,6 +189,7 @@ void Game::startAdventure()
                             << " on " << enemyMonster.getName() << " dealing " << chosenItem.getDamage() << " damage.\n";
 
                     enemyMonster.takeDamage(chosenItem.getDamage());
+                    playerMonster->removeItem(itemChoice);
                 }
                 else
                 {
