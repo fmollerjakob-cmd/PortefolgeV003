@@ -28,24 +28,99 @@ void Game::setupRandom()
 
 void Game::run()
 {
-    setupRandom();
+    while (gameRunning)
+    {
+        showMainMenu();
 
-    std::string characterName;
+        int choice = getMenuChoice();
 
-    std::cout << "Enter character name: " << std::endl;
-    std::cin >> characterName;
-    Character player(characterName);
+        if (choice == 1)
+        {
+            createNewCharacter();
+        }
+        else if (choice == 2)
+        {
+            player.print();
+        }
+        else if (choice == 3)
+        {
+            startAdventure();
+        }
+        else if (choice == 4)
+        {
+            gameRunning = false;
+        }
+        else
+        {
+            std::cout << "Invalid choice.\n";
+        }
+    }
+
+    std::cout << "Game closed.\n";
+}
+
+void Game::startAdventure()
+{
     
+    if (!player.hasAliveMonster())
+    {
+        std::cout << "No Alive Monsters!";
+        return;
+    }
+
     //Freendly Mobs
     Monster& playerMonster = player.getFirstAliveMonster();
 
 
     //Enemy mobs
-    Monster enemyMonster("Weak Goblin", 4, 2);
+    Monster enemyMonster("Weak Goblin", 4, 2); //palcefholder before changed
 
-    std::cout << "Character created: " << characterName << std::endl;
-    std::cout << "Your monsters:" << std::endl;
-    player.print();
+    std::cout << "Choose enemy monster:\n";
+    std::cout << "1. Weak Goblin\n";
+    std::cout << "2. Strong Goblin\n";
+    std::cout << "3. Stronger Goblin\n";
+    std::cout << "4. Den staerkeste Goblin\n";
+    std::cout << "5. Abe Kongen\n";
+    std::cout << "6. Enhjoerning\n";
+    std::cout << "7. Return to main menu\n";
+    std::cout << "Choose: ";
+
+    int choice;
+    std::cin >> choice;
+
+    if (choice == 1)
+    {
+        enemyMonster = Monster("Weak Goblin", 4, 2);
+    }
+    else if (choice == 2)
+    {
+        enemyMonster = Monster("Strong Goblin", 8, 3);
+    }
+    else if (choice == 3)
+    {
+        enemyMonster = Monster("Stronger Goblin", 10, 4);
+    }
+    else if (choice == 4)
+    {
+        enemyMonster = Monster("Den staerkeste Goblin", 15, 5);
+    }
+    else if (choice == 5)
+    {
+        enemyMonster = Monster("Abe Kongen", 30, 5);
+    }
+    else if (choice == 6)
+    {
+        enemyMonster = Monster("Enhjoerning", 50, 8);
+    }
+    else if (choice == 7)
+    {
+        return;
+    }
+    else
+    {
+        std::cout << "Invalid choice.\n";
+        return;
+    }
 
     std::cout << "Battle starts!" << std::endl;
     std::cout << playerMonster.getName() << " vs " << enemyMonster.getName() << std::endl;
@@ -93,6 +168,34 @@ void Game::run()
     }
 
     return;
-
 }
 
+void Game::showMainMenu()
+{
+    std::cout << "MAIN MENU\n";
+    std::cout << "1. Create new character\n";
+    std::cout << "2. Show character\n";
+    std::cout << "3. Start adventure\n";
+    std::cout << "4. Exit game\n";
+    std::cout << "Choose: ";
+}
+
+int Game::getMenuChoice()
+{
+    int choice;
+    std::cin >> choice;
+    return choice;
+}
+
+void Game::createNewCharacter()
+{
+    std::string characterName;
+
+    std::cout << "Enter character name: ";
+    std::cin >> characterName;
+
+    player = Character(characterName);
+
+    std::cout << "Character created.\n";
+    player.print();
+}
