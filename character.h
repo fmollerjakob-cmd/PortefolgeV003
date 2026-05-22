@@ -1,3 +1,6 @@
+#ifndef CHARACTER_H
+#define CHARACTER_H
+
 #include <string>
 #include <vector>
 #include "Monster.h"
@@ -20,3 +23,5 @@ public:
 
     void replaceMonster(int index, Monster monster);
 };
+
+#endif

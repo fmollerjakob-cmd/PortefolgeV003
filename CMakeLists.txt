@@ -9,6 +9,7 @@ add_executable(PortefolgeV003
     main.cpp
     Monster.cpp
     character.cpp
+    Game.cpp
 )
 
 
