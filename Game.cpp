@@ -9,13 +9,6 @@
 #include "character.h"
 #include "Item.h"
 
-/*
-Implement:
-items can be viewed
-Better prints
-
-*/
-
 Game::Game()
     : player("Unnamed")
 {
@@ -130,7 +123,7 @@ void Game::startAdventure()
         return;
     }
 
-    std::cout << "Battle starts!" << std::endl;
+    std::cout << "\n\t\tBattle starts!" << std::endl;
     std::cout << playerMonster->getName() << " vs " << enemyMonster.getName() << std::endl;
 
     int playerTurn = getRandomBetween(0,1);
@@ -153,59 +146,77 @@ void Game::startAdventure()
 
         if (playerTurn == 1)
         {
-            std::cout << "Your turn!\n";
-            std::cout << "1. Attack\n";
+            playerMonster->runStatuses();
 
-            if (playerMonster->getItemCount() > 0)
+            //Making sure enemy not dead by status before player turn
+            if (!playerMonster->isAlive())
             {
-                std::cout << "2. Use item\n";
-            }
+                std::cout << playerMonster->getName() << " was already defeated by status!\n";
 
-            std::cout << "Choose: ";
-
-            int actionChoice;
-            std::cin >> actionChoice;
-
-            if (actionChoice == 1)
-            {
-                playerMonster->attack(enemyMonster);
-            }
-            else if (actionChoice == 2 && playerMonster->getItemCount() > 0)
-            {
-                std::cout << "\nChoose item:\n";
-                playerMonster->showItems();
-
-                std::cout << "Choose: ";
-                int itemChoice;
-                std::cin >> itemChoice;
-
-                itemChoice = itemChoice - 1; //-1 to get item 0 when type 1
-
-                if (itemChoice >= 0 && itemChoice < playerMonster->getItemCount()) //item within 0 and number of items
-                {
-                    Item chosenItem = playerMonster->getItem(itemChoice);
-
-                    std::cout << playerMonster->getName() << " uses " << chosenItem.getName()
-                            << " on " << enemyMonster.getName() << " dealing " << chosenItem.getDamage() << " damage.\n";
-
-                    enemyMonster.takeDamage(chosenItem.getDamage());
-                    playerMonster->removeItem(itemChoice);
-                }
-                else
-                {
-                    std::cout << "Invalid item choice. Normal attack used instead.\n";
-                    playerMonster->attack(enemyMonster);
-                }
             }
             else
             {
-                std::cout << "Invalid choice. Normal attack used instead.\n";
-                playerMonster->attack(enemyMonster);
+
+                std::cout << "\n\t\tYour turn!\n";
+                std::cout << "1. Attack\n";
+
+                if (playerMonster->getItemCount() > 0)
+                {
+                    std::cout << "2. Use item\n";
+                }
+
+                std::cout << "Choose: ";
+
+                int actionChoice;
+                std::cin >> actionChoice;
+
+                if (actionChoice == 1)
+                {
+                    playerMonster->attack(enemyMonster);
+                }
+                else if (actionChoice == 2 && playerMonster->getItemCount() > 0)
+                {
+                    std::cout << "\nChoose item:\n";
+                    playerMonster->showItems();
+
+                    std::cout << "Choose: ";
+                    int itemChoice;
+                    std::cin >> itemChoice;
+
+                    itemChoice = itemChoice - 1; //-1 to get item 0 when type 1
+
+                    if (itemChoice >= 0 && itemChoice < playerMonster->getItemCount()) //item within 0 and number of items
+                    {
+                        Item chosenItem = playerMonster->getItem(itemChoice);
+
+                        std::cout << playerMonster->getName() << " uses " << chosenItem.getName()
+                                << " on " << enemyMonster.getName() << " dealing " << chosenItem.getDamage() << " damage.\n";
+
+                        enemyMonster.takeDamage(chosenItem.getDamage());
+                        playerMonster->removeItem(itemChoice);
+                    }
+                    else
+                    {
+                        std::cout << "Invalid item choice. Normal attack used instead.\n";
+                        playerMonster->attack(enemyMonster);
+                    }
+                }
+                else
+                {
+                    std::cout << "Invalid choice. Normal attack used instead.\n";
+                    playerMonster->attack(enemyMonster);
+                }
             }
         }
         else
         {
-            enemyMonster.attack(*playerMonster);
+            enemyMonster.runStatuses();
+            //Making sure enemy not dead by status before turn
+            if (enemyMonster.isAlive())
+            {
+                enemyMonster.attack(*playerMonster);
+            }
+            
         }
 
 
@@ -213,7 +224,7 @@ void Game::startAdventure()
         //friendly monsters are left
         if (!playerMonster->isAlive() && player.hasAliveMonster())
         {
-            std::cout << playerMonster->getName() << " was defeated!\n";
+            std::cout << "\n\t\t" << playerMonster->getName() << " was defeated!\n";
 
             playerMonster = &player.getFirstAliveMonster();
             std::cout << playerMonster->getName() << " is sent into battle!\n";
@@ -225,7 +236,7 @@ void Game::startAdventure()
 
     if (playerMonster->isAlive())
     {
-        std::cout << "\nYou won!" << std::endl;
+        std::cout << "\n\t\t You won!" << std::endl;
         takeMonster(enemyMonster);
     }
     else
@@ -265,6 +276,7 @@ void Game::createNewCharacter()
     // starting items
     player.monsters[0].addItem(Item("Bombe", 20));
     player.monsters[0].addItem(Item("Koelle", 5));
+    player.monsters[0].addItem(Item("Gift", 2, "Poisoned", 100, true));
 
     std::cout << "Character created.\n";
     player.print();

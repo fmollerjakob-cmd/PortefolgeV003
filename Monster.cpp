@@ -94,3 +94,39 @@ int Monster::getItemCount()
     return items.size();
 }
 
+void Monster::addStatus(std::string status)
+{
+    statuses.push_back(status);
+
+    std::cout << name << " has status: " << status << "!\n";
+}
+
+void Monster::showStatuses()
+{
+    if (statuses.size() == 0)
+    {
+        std::cout << "No statuses.\n";
+        return;
+    }
+
+    std::cout << "Statuses: ";
+
+    for (int i = 0; i < statuses.size(); i++)
+    {
+        std::cout << statuses[i] << " ";
+    }
+
+    std::cout << std::endl;
+}
+
+void Monster::runStatuses()
+{
+    for (int i = 0; i < statuses.size(); i++)
+    {
+        if (statuses[i] == "Poisoned")
+        {
+            std::cout << name << " takes 1 poison damage!\n";
+            takeDamage(2);
+        }
+    }
+}

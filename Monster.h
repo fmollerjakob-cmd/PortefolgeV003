@@ -3,6 +3,7 @@
 
 #include <string>
 #include<vector>
+#include <cstdlib>
 
 #include "Item.h"
 
@@ -15,6 +16,7 @@ private:
     int strength;
 
     std::vector<Item> items;
+    std::vector<std::string> statuses;
 
 public:
     Monster(std::string monsterName, int monsterHp, int monsterStrength);
@@ -36,6 +38,10 @@ public:
     int getItemCount();
 
     void removeItem(int index);
+
+    void addStatus(std::string status);
+    void runStatuses();
+    void showStatuses();
 };
 
 #endif
