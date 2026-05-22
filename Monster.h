@@ -2,6 +2,9 @@
 #define MONSTER_H
 
 #include <string>
+#include<vector>
+
+#include "Item.h"
 
 class Monster
 {
@@ -10,6 +13,8 @@ private:
     int hp;
     int maxHp;
     int strength;
+
+    std::vector<Item> items;
 
 public:
     Monster(std::string monsterName, int monsterHp, int monsterStrength);
@@ -25,7 +30,10 @@ public:
     int getHp();
     int getStrength();
 
-    
+    void addItem(Item item);
+    void showItems();
+    Item getItem(int index);
+    int getItemCount();
 };
 
 #endif

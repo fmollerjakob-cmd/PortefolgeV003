@@ -62,3 +62,26 @@ int Monster::getStrength()
 {
     return strength;
 }
+
+void Monster::addItem(Item item)
+{
+    items.push_back(item);
+}
+
+void Monster::showItems()
+{
+    for (int i = 0; i < items.size(); i++)
+    {
+        std::cout << i + 1 << ". " << items[i].getName() << " - Damage: " << items[i].getDamage() << std::endl;
+    }
+}
+
+Item Monster::getItem(int a)
+{
+    return items[a];
+}
+
+int Monster::getItemCount()
+{
+    return items.size();
+}

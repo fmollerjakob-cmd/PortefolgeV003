@@ -10,6 +10,7 @@ add_executable(PortefolgeV003
     Monster.cpp
     character.cpp
     Game.cpp
+    Item.cpp
 )
 
 
