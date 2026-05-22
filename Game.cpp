@@ -161,6 +161,7 @@ void Game::startAdventure()
     if (playerMonster.isAlive())
     {
         std::cout << "\nYou won!" << std::endl;
+        takeMonster(enemyMonster);
     }
     else
     {
@@ -198,4 +199,48 @@ void Game::createNewCharacter()
 
     std::cout << "Character created.\n";
     player.print();
+}
+
+void Game::takeMonster(Monster defeatedMonster)
+{
+    std::cout << "Aquire Monster: " << defeatedMonster.getName() << "?\n";
+    std::cout << "1. Yes\n";
+    std::cout << "2. No\n";
+    std::cout << "Choose: ";
+
+    int choice;
+    std::cin >> choice;
+
+    if (choice != 1)
+    {
+        std::cout << defeatedMonster.getName() << " was not added.\n";
+        return;
+    }
+
+    defeatedMonster.healToFull();
+
+    if (player.hasSpaceForMonster())
+    {
+        player.addMonster(defeatedMonster);
+        std::cout << defeatedMonster.getName() << " was added!\n";
+        return;
+    }
+
+    std::cout << "NO SPACE! Choose a monster to replace:\n";
+    player.print();
+
+    std::cout << "Choose monster number 1-4, or 0 to cancel: ";
+
+    int replace;
+    std::cin >> replace;
+
+    if (replace >= 1 && replace <= 4)
+    {
+        player.replaceMonster(replace - 1, defeatedMonster);
+        std::cout << defeatedMonster.getName() << " was added!\n";
+    }
+    else
+    {
+        std::cout << defeatedMonster.getName() << " was not added.\n";
+    }
 }

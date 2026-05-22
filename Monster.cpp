@@ -43,6 +43,11 @@ void Monster::print()
     std::cout << name << " HP: " << hp << "/" << maxHp << " Strength: " << strength << std::endl;
 }
 
+void Monster::healToFull()
+{
+    hp = maxHp;
+}
+
 std::string Monster::getName()
 {
     return name;

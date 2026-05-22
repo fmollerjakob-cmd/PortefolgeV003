@@ -24,6 +24,7 @@ private:
     void createNewCharacter();
     void startAdventure();
     void battle(Monster enemyMonster);
+    void takeMonster(Monster defeatedMonster);
 };
 
 #endif

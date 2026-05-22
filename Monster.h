@@ -19,10 +19,13 @@ public:
 
     void takeDamage(int damage);
     void attack(Monster& enemy);
+    void healToFull();
 
     std::string getName();
     int getHp();
     int getStrength();
+
+    
 };
 
 #endif
