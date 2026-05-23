@@ -14,6 +14,10 @@ Bugs:
 WHen not creating a new character, you do not get standart items!
 status effect dissapears when friendly mosnter who applied it dies
 
+Future implementations:
+healing potion (requirement of applying item to own monster,
+depending on how you interpret the assignment, it does day "or", 
+and i am pressed by exam so i might choose to wait with that one :D)
 */
 
 
