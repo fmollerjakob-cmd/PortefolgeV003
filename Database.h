@@ -4,6 +4,8 @@
 #include <sqlite3.h>
 #include <string>
 
+#include "character.h"
+
 class Database
 {
 private:
@@ -15,6 +17,8 @@ public:
     ~Database(); //Destructor for deleting objects when done
 
     void createTables();
+
+    void saveCharacter(Character& character);
 };
 
 #endif

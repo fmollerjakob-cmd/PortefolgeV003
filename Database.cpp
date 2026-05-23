@@ -1,5 +1,7 @@
 #include "Database.h"
 #include <iostream>
+#include <string>
+#include <vector>
 
 Database::Database()
 {
@@ -37,4 +39,31 @@ void Database::createTables()
     sqlite3_exec(db, sql.c_str(), NULL, NULL, NULL);
 
     std::cout << "Databse tables success" << std::endl;
+}
+
+void Database::saveCharacter(Character& character)
+{
+    std::string sqlHero =
+        "INSERT INTO heroes (name) VALUES ('" + character.getName() + "');";
+
+    sqlite3_exec(db, sqlHero.c_str(), NULL, NULL, NULL);
+
+    int heroId = sqlite3_last_insert_rowid(db);
+
+    std::vector<Monster> monsters = character.getMonsters();
+
+    for (int i = 0; i < monsters.size(); i++)
+    {
+        std::string sqlMonster =
+            "INSERT INTO hero_monsters (hero_id, name, hp, strength) VALUES (" +
+            std::to_string(heroId) + ", '" +
+            monsters[i].getName() + "', " +
+            std::to_string(monsters[i].getHp()) + ", " +
+            std::to_string(monsters[i].getStrength()) +
+            ");";
+
+        sqlite3_exec(db, sqlMonster.c_str(), NULL, NULL, NULL);
+    }
+
+    std::cout << "Character saved to database." << std::endl;
 }

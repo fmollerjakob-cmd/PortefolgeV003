@@ -21,8 +21,14 @@ int main()
     Database database;
     database.createTables();
 
-    Game game;
-    game.run();
+    Character player("TestPlayer");
+    player.addMonster(Monster("Hest", 10, 3));
+    player.addMonster(Monster("Goblin", 6, 2));
+
+    database.saveCharacter(player);
+
+    //Game game;
+    //game.run();
 
     return 0;
 }

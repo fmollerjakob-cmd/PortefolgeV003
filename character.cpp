@@ -81,3 +81,13 @@ int Character::getCombinedHp()
 
     return combinedHp;
 }
+
+std::string Character::getName()
+{
+    return name;
+}
+
+std::vector<Monster> Character::getMonsters()
+{
+    return monsters;
+}

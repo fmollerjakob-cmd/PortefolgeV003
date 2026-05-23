@@ -25,6 +25,10 @@ public:
 
     int getCombinedHp(); //For checking level of player
 
+    std::string getName();
+
+    std::vector<Monster> getMonsters();
+
 };
 
 #endif
