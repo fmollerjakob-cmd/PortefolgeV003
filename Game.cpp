@@ -292,7 +292,7 @@ void Game::startGrotte()
         chosenGrotte.addMonster(Monster("Piranha", 1, 2));
         chosenGrotte.addMonster(Monster("Piranha", 1, 2));
         chosenGrotte.addMonster(Monster("Alligator", 18, 5));
-        chosenGrotte.addMonster(Monster("Denisuchus", 45, 12));
+        chosenGrotte.addMonster(Monster("Deinosuchus", 45, 12));
     }
 
     std::cout << "\nYou enter " << chosenGrotte.getName() << "!\n";
