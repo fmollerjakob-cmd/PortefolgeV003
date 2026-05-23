@@ -22,6 +22,9 @@ public:
     bool hasSpaceForMonster();
 
     void replaceMonster(int index, Monster monster);
+
+    int getCombinedHp(); //For checking level of player
+
 };
 
 #endif

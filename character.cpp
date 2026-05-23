@@ -69,3 +69,15 @@ void Character::replaceMonster(int index, Monster monster)
         monsters[index] = monster;
     }
 }
+
+int Character::getCombinedHp()
+{
+    int combinedHp = 0;
+    
+    for (int i = 0; i < monsters.size(); i++)
+    {
+        combinedHp += monsters[i].getHp();
+    }
+
+    return combinedHp;
+}

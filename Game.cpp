@@ -269,23 +269,31 @@ void Game::startGrotte()
 
     Grotte chosenGrotte("Small Grotte", Item("Bombe", 10));
 
-    int randomReward = getRandomBetween(1,6);
-    if (randomReward < 3)
+    int playerLevel = player.getCombinedHp();
+    if (playerLevel < 15)
     {
         chosenGrotte = Grotte("Small Grotte", Item("Koelle", 5));
+        chosenGrotte.addMonster(Monster("Cave Rat", 5, 2));
+        chosenGrotte.addMonster(Monster("Small Goblin", 7, 2));
+        chosenGrotte.addMonster(Monster("Grotte Boss", 12, 3));
     }
-    else if (randomReward < 6)
+    else if (playerLevel < 40)
     {
-        chosenGrotte = Grotte("Small Grotte", Item("Gift", 2, "Poisoned", 100, true));
+        chosenGrotte = Grotte("medium Grotte", Item("Gift", 2, "Poisoned", 100, true));
+        chosenGrotte.addMonster(Monster("Spider Egg", 0, 0));
+        chosenGrotte.addMonster(Monster("Cave Spider", 2, 4));
+        chosenGrotte.addMonster(Monster("Cave Spider", 2, 4));
+        chosenGrotte.addMonster(Monster("Cave Spider", 2, 4));
+        chosenGrotte.addMonster(Monster("Broodmother", 22, 7));
     }
     else 
     {
-        chosenGrotte = Grotte("Small Grotte", Item("Bombe", 15));
+        chosenGrotte = Grotte("deep Grotte", Item("Bombe", 15));
+        chosenGrotte.addMonster(Monster("Piranha", 1, 2));
+        chosenGrotte.addMonster(Monster("Piranha", 1, 2));
+        chosenGrotte.addMonster(Monster("Alligator", 18, 5));
+        chosenGrotte.addMonster(Monster("Denisuchus", 45, 12));
     }
-
-    chosenGrotte.addMonster(Monster("Cave Rat", 5, 2));
-    chosenGrotte.addMonster(Monster("Small Goblin", 7, 2));
-    chosenGrotte.addMonster(Monster("Grotte Boss", 12, 3));
 
     std::cout << "\nYou enter " << chosenGrotte.getName() << "!\n";
 
@@ -440,7 +448,7 @@ void Game::showMainMenu()
     std::cout << "1. Create new character\n";
     std::cout << "2. Show character\n";
     std::cout << "3. Start adventure\n";
-    std::cout << "4. Enter cave\n";
+    std::cout << "4. Enter grotte\n";
     std::cout << "5. Exit game\n";
     std::cout << "Choose: ";
 }
