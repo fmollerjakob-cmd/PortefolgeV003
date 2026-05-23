@@ -9,6 +9,14 @@
 #include "character.h"
 #include "Item.h"
 
+/*
+Bugs:
+WHen not creating a new character, you do not get standart items!
+status effect dissapears when friendly mosnter who applied it dies
+
+*/
+
+
 Game::Game()
     : player("Unnamed")
 {
