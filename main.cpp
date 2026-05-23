@@ -1,4 +1,8 @@
 #include "Game.h"
+#include <sqlite3.h>
+#include <iostream>
+
+#include "Database.h"
 
 /*
 git commit -m ""
@@ -13,6 +17,9 @@ make
 
 int main()
 {
+
+    Database database;
+    database.createTables();
 
     Game game;
     game.run();
