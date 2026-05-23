@@ -49,6 +49,10 @@ void Game::run()
         }
         else if (choice == 4)
         {
+            startGrotte();
+        }
+        else if (choice == 5)
+        {
             gameRunning = false;
         }
         else
@@ -247,13 +251,189 @@ void Game::startAdventure()
     return;
 }
 
+void Game::startGrotte()
+{
+    if (!player.hasAliveMonster())
+    {
+        std::cout << "No alive monsters!\n";
+        return;
+    }
+
+    Grotte chosenGrotte("Small Grotte", Item("Bombe", 10));
+
+    int randomReward = getRandomBetween(1,6);
+    if (randomReward < 3)
+    {
+        chosenGrotte = Grotte("Small Grotte", Item("Koelle", 5));
+    }
+    else if (randomReward < 6)
+    {
+        chosenGrotte = Grotte("Small Grotte", Item("Gift", 2, "Poisoned", 100, true));
+    }
+    else 
+    {
+        chosenGrotte = Grotte("Small Grotte", Item("Bombe", 15));
+    }
+
+    chosenGrotte.addMonster(Monster("Cave Rat", 5, 2));
+    chosenGrotte.addMonster(Monster("Small Goblin", 7, 2));
+    chosenGrotte.addMonster(Monster("Grotte Boss", 12, 3));
+
+    std::cout << "\nYou enter " << chosenGrotte.getName() << "!\n";
+
+    for (int i = 0; i < chosenGrotte.getMonsterCount(); i++)
+    {
+        Monster& enemyMonster = chosenGrotte.getMonster(i);
+
+        std::cout << "\nEnemy " << i + 1 << " of " << chosenGrotte.getMonsterCount() << "\n";
+        std::cout << enemyMonster.getName() << " appears!\n";
+
+        Monster* playerMonster = &player.getFirstAliveMonster();
+
+        int playerTurn = getRandomBetween(0, 1);
+
+        //This part untill player shift turn is excect copy of the adventure part,
+        // in future, make it a function instead of hardcoding
+        while (playerMonster->isAlive() && enemyMonster.isAlive())
+        {
+            std::cout << playerMonster->getName() << " HP: " << playerMonster->getHp() << std::endl;
+            std::cout << enemyMonster.getName() << " HP: " << enemyMonster.getHp() << std::endl;
+
+            if (playerTurn == 1)
+            {
+                playerMonster->runStatuses();
+
+                //Making sure enemy not dead by status before player turn
+                if (!playerMonster->isAlive())
+                {
+                    std::cout << playerMonster->getName() << " was already defeated by status!\n";
+
+                }
+                else
+                {
+
+                    std::cout << "\n\t\tYour turn!\n";
+                    std::cout << "1. Attack\n";
+
+                    if (playerMonster->getItemCount() > 0)
+                    {
+                        std::cout << "2. Use item\n";
+                    }
+
+                    std::cout << "Choose: ";
+
+                    int actionChoice;
+                    std::cin >> actionChoice;
+
+                    if (actionChoice == 1)
+                    {
+                        playerMonster->attack(enemyMonster);
+                    }
+                    else if (actionChoice == 2 && playerMonster->getItemCount() > 0)
+                    {
+                        std::cout << "\nChoose item:\n";
+                        playerMonster->showItems();
+
+                        std::cout << "Choose: ";
+                        int itemChoice;
+                        std::cin >> itemChoice;
+
+                        itemChoice = itemChoice - 1; //-1 to get item 0 when type 1
+
+                        if (itemChoice >= 0 && itemChoice < playerMonster->getItemCount()) //item within 0 and number of items
+                        {
+                            Item chosenItem = playerMonster->getItem(itemChoice);
+
+                            std::cout << playerMonster->getName() << " uses " << chosenItem.getName()
+                                    << " on " << enemyMonster.getName() << " dealing " << chosenItem.getDamage() << " damage.\n";
+
+                            enemyMonster.takeDamage(chosenItem.getDamage());
+                            playerMonster->removeItem(itemChoice);
+                        }
+                        else
+                        {
+                            std::cout << "Invalid item choice. Normal attack used instead.\n";
+                            playerMonster->attack(enemyMonster);
+                        }
+                    }
+                    else
+                    {
+                        std::cout << "Invalid choice. Normal attack used instead.\n";
+                        playerMonster->attack(enemyMonster);
+                    }
+                }
+            }
+            else
+            {
+                enemyMonster.runStatuses();
+                //Making sure enemy not dead by status before turn
+                if (enemyMonster.isAlive())
+                {
+                    enemyMonster.attack(*playerMonster);
+                }
+                
+            }
+
+
+            //This part allows for next friendly monster to be sent into battle if 
+            //friendly monsters are left
+            if (!playerMonster->isAlive() && player.hasAliveMonster())
+            {
+                std::cout << "\n\t\t" << playerMonster->getName() << " was defeated!\n";
+
+                playerMonster = &player.getFirstAliveMonster();
+                std::cout << playerMonster->getName() << " is sent into battle!\n";
+            }
+
+            playerTurn += 1;
+            playerTurn = playerTurn % 2;
+        }
+
+        if (!player.hasAliveMonster())
+        {
+            std::cout << "\nYou lost in the grotte!\n";
+            return;
+        }
+
+        std::cout << enemyMonster.getName() << " was defeated!\n";
+    }
+
+    std::cout << "\nYou completed the grotte!\n";
+    //takeMonster replaced with item
+    Item reward = chosenGrotte.getRewardItem();
+
+    std::cout << "You received item: " << reward.getName() << "\n";
+    std::cout << "Choose which monster should receive the item:\n";
+
+    player.print();
+
+    std::cout << "Choose monster number: ";
+
+    int monsterChoice;
+    std::cin >> monsterChoice;
+
+    if (monsterChoice >= 1 && monsterChoice <= player.monsters.size())
+    {
+        player.monsters[monsterChoice - 1].addItem(reward);
+
+        std::cout << reward.getName() << " was given to "
+                  << player.monsters[monsterChoice - 1].getName() << "!\n";
+    }
+    else
+    {
+        std::cout << "Invalid choice. Item was lost.\n";
+    }
+}
+
+
 void Game::showMainMenu()
 {
-    std::cout << "MAIN MENU\n";
+    std::cout << "\nMAIN MENU\n";
     std::cout << "1. Create new character\n";
     std::cout << "2. Show character\n";
     std::cout << "3. Start adventure\n";
-    std::cout << "4. Exit game\n";
+    std::cout << "4. Enter cave\n";
+    std::cout << "5. Exit game\n";
     std::cout << "Choose: ";
 }
 

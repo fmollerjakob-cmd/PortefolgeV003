@@ -11,6 +11,7 @@ add_executable(PortefolgeV003
     character.cpp
     Game.cpp
     Item.cpp
+    Grotte.cpp
 )
 
 

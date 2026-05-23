@@ -3,6 +3,7 @@
 
 #include "character.h"
 #include "Monster.h"
+#include "Grotte.h"
 
 class Game
 {
@@ -25,6 +26,8 @@ private:
     void startAdventure();
     void battle(Monster enemyMonster);
     void takeMonster(Monster defeatedMonster);
+
+    void startGrotte();
 };
 
 #endif
