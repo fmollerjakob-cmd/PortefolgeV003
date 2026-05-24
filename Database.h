@@ -19,6 +19,11 @@ public:
     void createTables();
 
     void saveCharacter(Character& character);
+
+    bool loadCharacter(Character& character);
+
+    void clearSave();
+
 };
 
 #endif

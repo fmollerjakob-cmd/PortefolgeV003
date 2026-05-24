@@ -43,6 +43,9 @@ void Database::createTables()
 
 void Database::saveCharacter(Character& character)
 {
+
+    clearSave();
+
     std::string sqlHero =
         "INSERT INTO heroes (name) VALUES ('" + character.getName() + "');";
 
@@ -66,4 +69,82 @@ void Database::saveCharacter(Character& character)
     }
 
     std::cout << "Character saved to database." << std::endl;
+}
+
+void Database::clearSave()
+{
+    std::string sql = 
+        "DELETE FROM hero_monsters;"
+        "DELETE FROM heroes;";
+
+    sqlite3_exec(db, sql.c_str(), NULL, NULL, NULL);
+
+}
+
+bool Database::loadCharacter(Character& character)
+{
+    std::string sqlHero =
+        "SELECT id, name FROM heroes LIMIT 1;";
+
+    sqlite3_stmt* stmtHero;
+
+    int result = sqlite3_prepare_v2(db, sqlHero.c_str(), -1, &stmtHero, NULL);
+
+    if (result != SQLITE_OK)
+    {
+        std::cout << "Could not read save.\n";
+        return false;
+    }
+
+    if (sqlite3_step(stmtHero) != SQLITE_ROW)
+    {
+        std::cout << "No saved character found.\n";
+        sqlite3_finalize(stmtHero);
+        return false;
+    }
+
+    int heroId = sqlite3_column_int(stmtHero, 0);
+
+    const unsigned char* nameText = sqlite3_column_text(stmtHero, 1);
+    std::string characterName = reinterpret_cast<const char*>(nameText);
+
+    sqlite3_finalize(stmtHero);
+
+    Character loadedCharacter(characterName);
+
+    // clear 2 horsesfrom constructor
+    loadedCharacter.monsters.clear();
+
+    std::string sqlMonsters =
+        "SELECT name, hp, strength FROM hero_monsters WHERE hero_id = " +
+        std::to_string(heroId) + ";";
+
+    sqlite3_stmt* stmtMonsters;
+
+    result = sqlite3_prepare_v2(db, sqlMonsters.c_str(), -1, &stmtMonsters, NULL);
+
+    if (result != SQLITE_OK)
+    {
+        std::cout << "Could not read saved monsters.\n";
+        return false;
+    }
+
+    while (sqlite3_step(stmtMonsters) == SQLITE_ROW)
+    {
+        const unsigned char* monsterNameText = sqlite3_column_text(stmtMonsters, 0);
+        std::string monsterName = reinterpret_cast<const char*>(monsterNameText);
+
+        int hp = sqlite3_column_int(stmtMonsters, 1);
+        int strength = sqlite3_column_int(stmtMonsters, 2);
+
+        loadedCharacter.addMonster(Monster(monsterName, hp, strength));
+    }
+
+    sqlite3_finalize(stmtMonsters);
+
+    character = loadedCharacter;
+
+    std::cout << "Character loaded from database.\n";
+
+    return true;
 }

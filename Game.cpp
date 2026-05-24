@@ -26,6 +26,8 @@ Game::Game()
 {
     gameRunning = true;
     setupRandom();
+
+    database.createTables();
 }
 
 
@@ -64,6 +66,14 @@ void Game::run()
             startGrotte();
         }
         else if (choice == 5)
+        {
+            saveGame();
+        }
+        else if (choice == 6)
+        {
+            loadGame();
+        }
+        else if (choice == 7)
         {
             gameRunning = false;
         }
@@ -274,7 +284,7 @@ void Game::startGrotte()
     Grotte chosenGrotte("Small Grotte", Item("Bombe", 10));
 
     int playerLevel = player.getCombinedHp();
-    if (playerLevel < 15)
+    if (playerLevel < 25)
     {
         chosenGrotte = Grotte("Small Grotte", Item("Koelle", 5));
         chosenGrotte.addMonster(Monster("Cave Rat", 5, 2));
@@ -344,6 +354,8 @@ void Game::startGrotte()
 
                     int actionChoice;
                     std::cin >> actionChoice;
+
+                    std::cout << std::endl;
 
                     if (actionChoice == 1)
                     {
@@ -453,7 +465,9 @@ void Game::showMainMenu()
     std::cout << "2. Show character\n";
     std::cout << "3. Start adventure\n";
     std::cout << "4. Enter grotte\n";
-    std::cout << "5. Exit game\n";
+    std::cout << "5. Save game\n";
+    std::cout << "6. Load game\n";
+    std::cout << "7. Exit game\n";
     std::cout << "Choose: ";
 }
 
@@ -526,5 +540,20 @@ void Game::takeMonster(Monster defeatedMonster)
     else
     {
         std::cout << defeatedMonster.getName() << " was not added.\n";
+    }
+}
+
+void Game::saveGame()
+{
+    database.saveCharacter(player);
+}
+
+void Game::loadGame()
+{
+    bool loaded = database.loadCharacter(player);
+
+    if (loaded)
+    {
+        player.print();
     }
 }

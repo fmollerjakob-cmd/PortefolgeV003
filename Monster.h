@@ -32,6 +32,7 @@ public:
     int getHp();
     int getStrength();
 
+
     void addItem(Item item);
     void showItems();
     Item getItem(int index);

@@ -4,12 +4,15 @@
 #include "character.h"
 #include "Monster.h"
 #include "Grotte.h"
+#include "Database.h"
 
 class Game
 {
 private:
     Character player;
     bool gameRunning;
+
+    Database database;
 
 public:
     Game();
@@ -28,6 +31,9 @@ private:
     void takeMonster(Monster defeatedMonster);
 
     void startGrotte();
+
+    void saveGame();
+    void loadGame();
 };
 
 #endif
