@@ -43,6 +43,9 @@ void Game::setupRandom()
 
 void Game::run()
 {
+
+    showStartMenu();
+
     while (gameRunning)
     {
         showMainMenu();
@@ -581,5 +584,31 @@ void Game::loadGame()
     if (loaded)
     {
         player.print();
+    }
+}
+
+void Game::showStartMenu()
+{
+    std::cout << "\nWELCOME TO PORTEFOLGE-RAIDER\n";
+    std::cout << "1. Create new character\n";
+    std::cout << "2. Load saved character: " << database.getSavedCharacterName();
+    std::cout << "\nChoose: ";
+
+    int choice;
+    std::cin >> choice;
+
+    if (choice == 1)
+    {  
+        createNewCharacter();
+    }
+    else 
+    if (choice == 2)
+    {
+        loadGame();
+    }
+    else
+    {
+        std::cout << "INVALID CHOICE, creating new character!\n";
+        createNewCharacter();
     }
 }

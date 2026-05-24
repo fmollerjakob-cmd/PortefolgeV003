@@ -34,6 +34,8 @@ private:
 
     void saveGame();
     void loadGame();
+
+    void showStartMenu();
 };
 
 #endif

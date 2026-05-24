@@ -24,6 +24,8 @@ public:
 
     void clearSave();
 
+    std::string getSavedCharacterName();
+
 };
 
 #endif

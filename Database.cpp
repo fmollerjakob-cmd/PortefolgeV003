@@ -168,3 +168,32 @@ bool Database::loadCharacter(Character& character)
 
     return true;
 }
+
+std::string Database::getSavedCharacterName()
+{
+    std::string sql =
+        "SELECT name FROM heroes LIMIT 1;";
+
+    sqlite3_stmt* stmt;
+
+    int result = sqlite3_prepare_v2(db, sql.c_str(), -1, &stmt, NULL);
+
+    if (result != SQLITE_OK)
+    {
+        return "No save found";
+    }
+
+    if (sqlite3_step(stmt) != SQLITE_ROW)
+    {
+        sqlite3_finalize(stmt);
+        return "No save found";
+    }
+
+    const unsigned char* nameText = sqlite3_column_text(stmt, 0);
+    std::string savedName = reinterpret_cast<const char*>(nameText);
+
+    sqlite3_finalize(stmt);
+
+    return savedName;
+
+}
