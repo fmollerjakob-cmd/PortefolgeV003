@@ -219,11 +219,19 @@ void Game::startAdventure()
                     {
                         Item chosenItem = playerMonster->getItem(itemChoice);
 
+                        player.addUsedItem(chosenItem.getName()); //appends for statistics
+
                         std::cout << playerMonster->getName() << " uses " << chosenItem.getName()
                                 << " on " << enemyMonster.getName() << " dealing " << chosenItem.getDamage() << " damage.\n";
 
                         enemyMonster.takeDamage(chosenItem.getDamage());
                         playerMonster->removeItem(itemChoice);
+
+                        if (!enemyMonster.isAlive())
+                        {
+                            player.addItemDefeatedMonster(chosenItem.getName());
+                        }
+
                     }
                     else
                     {
@@ -383,11 +391,19 @@ void Game::startGrotte()
                         {
                             Item chosenItem = playerMonster->getItem(itemChoice);
 
+                            player.addUsedItem(chosenItem.getName());
+
                             std::cout << playerMonster->getName() << " uses " << chosenItem.getName()
                                     << " on " << enemyMonster.getName() << " dealing " << chosenItem.getDamage() << " damage.\n";
 
                             enemyMonster.takeDamage(chosenItem.getDamage());
                             playerMonster->removeItem(itemChoice);
+
+                            if (!enemyMonster.isAlive())
+                            {
+                                player.addItemDefeatedMonster(chosenItem.getName());
+                            }
+
                         }
                         else
                         {

@@ -13,16 +13,8 @@ public:
 
     int totalDefeatedMonsters;
 
-    //would probably be better to just add the item name to 
-    //a vector when used, and then check if enenywas defeated and 
-    //then count specific occurances in that vector when printing.
-    int koelleUsed;
-    int bombUsed;
-    int giftUsed;
-
-    int bombDefeatedMonster;
-    int giftDefeatedMonster;
-    int koelleDefeatedMonster;
+    std::vector<std::string> usedItems;
+    std::vector<std::string> itemDefeatedMonster;
 
     Character(std::string characterName);
 
@@ -42,10 +34,14 @@ public:
 
     std::vector<Monster> getMonsters();
 
-    
+    void addUsedItem(std::string itemName);
+
+    void addItemDefeatedMonster(std::string itemName);
 
     void addDefeatedMonster();
     void printStatistics();
+
+    void printItemCounts(std::vector<std::string> names);
 
 };
 

@@ -103,9 +103,60 @@ void Character::printStatistics()
 {
     std::cout << "\n\t\tStatistics:"
         << "\nDefeated Monsters: " << totalDefeatedMonsters
-        << "\nMonsters defeated by Koelle: " << totalDefeatedMonsters
-        << "\nMonsters defeated by Poison: " << totalDefeatedMonsters
-        << "\nMonsters defeated by Bombe: " << totalDefeatedMonsters
-        << "\nMonster most frequently used: " << totalDefeatedMonsters
-        << std::endl;
+        << "\nItems used: \n";
+        printItemCounts(usedItems); //for items used
+
+        std::cout << "\nMonsters defeated by item:\n";
+        printItemCounts(itemDefeatedMonster); //for items used to defeat monster
+        std::cout << std::endl;
+}
+
+void Character::addUsedItem(std::string itemName)
+{
+    usedItems.push_back(itemName);
+}
+
+void Character::addItemDefeatedMonster(std::string itemName)
+{
+    itemDefeatedMonster.push_back(itemName);
+}
+
+void Character::printItemCounts(std::vector<std::string> names)
+{
+    //cloning names vector unto new vector needed
+    std::vector<std::string> checkedNames;
+    for (int i = 0; i < names.size(); i++)
+    {
+        checkedNames.push_back(names[i]);
+    }
+
+    //checking each name for occurances
+    while (checkedNames.size() > 0)
+    {
+        std::string currentName = checkedNames[0];
+
+        int occuranceCounter = 0;
+        
+        for (int i = 0; i < names.size(); i++)
+        {
+            if (names[i] == currentName)
+            {
+                occuranceCounter += 1;
+            }
+        }
+        std::cout << currentName << "| " << occuranceCounter << std::endl;
+
+        //deleting all occurances from placeholder vector
+        int i = 0;
+        while (i < checkedNames.size())
+        {
+            if (checkedNames[i] == currentName)
+            {
+               checkedNames.erase(checkedNames.begin() + i);
+            }
+            else{
+                i++;
+            }
+        }
+    }
 }
