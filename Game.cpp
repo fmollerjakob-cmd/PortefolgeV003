@@ -75,6 +75,10 @@ void Game::run()
         }
         else if (choice == 7)
         {
+            player.printStatistics();
+        }
+        else if (choice == 8)
+        {
             gameRunning = false;
         }
         else
@@ -263,6 +267,9 @@ void Game::startAdventure()
     if (playerMonster->isAlive())
     {
         std::cout << "\n\t\t You won!" << std::endl;
+
+        player.addDefeatedMonster();
+
         takeMonster(enemyMonster);
     }
     else
@@ -413,6 +420,8 @@ void Game::startGrotte()
             {
                 std::cout << "\n\t\t" << playerMonster->getName() << " was defeated!\n";
 
+                player.addDefeatedMonster();
+
                 playerMonster = &player.getFirstAliveMonster();
                 std::cout << playerMonster->getName() << " is sent into battle!\n";
             }
@@ -467,7 +476,8 @@ void Game::showMainMenu()
     std::cout << "4. Enter grotte\n";
     std::cout << "5. Save game\n";
     std::cout << "6. Load game\n";
-    std::cout << "7. Exit game\n";
+    std::cout << "7. Show statistics\n";
+    std::cout << "8. Exit game\n";
     std::cout << "Choose: ";
 }
 

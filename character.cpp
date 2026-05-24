@@ -9,6 +9,8 @@ Character::Character(std::string characterName)
     //Should always start with 2 horses
     monsters.push_back(Monster("Hest", 6, 6, 2)); //Horse
     monsters.push_back(Monster("Hest", 6, 6, 2));
+
+    totalDefeatedMonsters = 0;
 }
 
 bool Character::hasAliveMonster()
@@ -90,4 +92,20 @@ std::string Character::getName()
 std::vector<Monster> Character::getMonsters()
 {
     return monsters;
+}
+
+void Character::addDefeatedMonster()
+{
+    totalDefeatedMonsters += 1;
+}
+
+void Character::printStatistics()
+{
+    std::cout << "\n\t\tStatistics:"
+        << "\nDefeated Monsters: " << totalDefeatedMonsters
+        << "\nMonsters defeated by Koelle: " << totalDefeatedMonsters
+        << "\nMonsters defeated by Poison: " << totalDefeatedMonsters
+        << "\nMonsters defeated by Bombe: " << totalDefeatedMonsters
+        << "\nMonster most frequently used: " << totalDefeatedMonsters
+        << std::endl;
 }
