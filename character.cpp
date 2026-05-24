@@ -7,8 +7,8 @@ Character::Character(std::string characterName)
     name = characterName;
 
     //Should always start with 2 horses
-    monsters.push_back(Monster("Hest", 6, 2)); //Horse
-    monsters.push_back(Monster("Hest", 6, 2));
+    monsters.push_back(Monster("Hest", 6, 6, 2)); //Horse
+    monsters.push_back(Monster("Hest", 6, 6, 2));
 }
 
 bool Character::hasAliveMonster()

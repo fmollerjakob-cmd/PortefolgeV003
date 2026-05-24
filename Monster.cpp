@@ -1,11 +1,11 @@
 #include "Monster.h"
 #include <iostream>
 
-Monster::Monster(std::string monsterName, int monsterHp, int monsterStrength)
+Monster::Monster(std::string monsterName, int monsterHp, int monsterMaxHp, int monsterStrength)
 {
     name = monsterName;
     hp = monsterHp;
-    maxHp = monsterHp;
+    maxHp = monsterMaxHp;
     strength = monsterStrength;
 }
 
@@ -19,6 +19,7 @@ bool Monster::isAlive()
     {
         return true;
     }
+
 }
 
 void Monster::takeDamage(int damage)
@@ -63,7 +64,10 @@ int Monster::getStrength()
     return strength;
 }
 
-
+int Monster::getMaxHp()
+{
+    return maxHp;
+}
 
 void Monster::addItem(Item item)
 {

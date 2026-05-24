@@ -100,7 +100,7 @@ void Game::startAdventure()
 
 
     //Enemy mobs
-    Monster enemyMonster("Weak Goblin", 4, 2); //palcefholder before changed
+    Monster enemyMonster("Weak Goblin", 4, 4, 2); //palcefholder before changed
 
     std::cout << "Choose enemy monster:\n";
     std::cout << "1. Weak Goblin\n";
@@ -117,27 +117,27 @@ void Game::startAdventure()
 
     if (choice == 1)
     {
-        enemyMonster = Monster("Weak Goblin", 4, 2);
+        enemyMonster = Monster("Weak Goblin", 4, 4, 2);
     }
     else if (choice == 2)
     {
-        enemyMonster = Monster("Strong Goblin", 8, 3);
+        enemyMonster = Monster("Strong Goblin", 8, 8, 3);
     }
     else if (choice == 3)
     {
-        enemyMonster = Monster("Stronger Goblin", 10, 4);
+        enemyMonster = Monster("Stronger Goblin", 10, 10, 4);
     }
     else if (choice == 4)
     {
-        enemyMonster = Monster("Den staerkeste Goblin", 15, 5);
+        enemyMonster = Monster("Den staerkeste Goblin", 15, 15, 5);
     }
     else if (choice == 5)
     {
-        enemyMonster = Monster("Abe Kongen", 30, 5);
+        enemyMonster = Monster("Abe Kongen", 30, 30, 5);
     }
     else if (choice == 6)
     {
-        enemyMonster = Monster("Enhjoerning", 50, 8);
+        enemyMonster = Monster("Enhjoerning", 50, 50, 8);
     }
     else if (choice == 7)
     {
@@ -284,29 +284,29 @@ void Game::startGrotte()
     Grotte chosenGrotte("Small Grotte", Item("Bombe", 10));
 
     int playerLevel = player.getCombinedHp();
-    if (playerLevel < 25)
+    if (playerLevel < 30)
     {
         chosenGrotte = Grotte("Small Grotte", Item("Koelle", 5));
-        chosenGrotte.addMonster(Monster("Cave Rat", 5, 2));
-        chosenGrotte.addMonster(Monster("Small Goblin", 7, 2));
-        chosenGrotte.addMonster(Monster("Grotte Boss", 12, 3));
+        chosenGrotte.addMonster(Monster("Cave Rat", 5, 5, 2));
+        chosenGrotte.addMonster(Monster("Small Goblin", 7, 7, 2));
+        chosenGrotte.addMonster(Monster("Grotte Boss", 12, 12, 3));
     }
-    else if (playerLevel < 40)
+    else if (playerLevel < 50)
     {
         chosenGrotte = Grotte("medium Grotte", Item("Gift", 2, "Poisoned", 100, true));
-        chosenGrotte.addMonster(Monster("Spider Egg", 0, 0));
-        chosenGrotte.addMonster(Monster("Cave Spider", 2, 4));
-        chosenGrotte.addMonster(Monster("Cave Spider", 2, 4));
-        chosenGrotte.addMonster(Monster("Cave Spider", 2, 4));
-        chosenGrotte.addMonster(Monster("Broodmother", 22, 7));
+        chosenGrotte.addMonster(Monster("Spider Egg", 0, 0, 0));
+        chosenGrotte.addMonster(Monster("Cave Spider", 2, 2, 4));
+        chosenGrotte.addMonster(Monster("Cave Spider", 2, 2, 4));
+        chosenGrotte.addMonster(Monster("Cave Spider", 2, 2, 4));
+        chosenGrotte.addMonster(Monster("Broodmother", 22, 22, 7));
     }
     else 
     {
         chosenGrotte = Grotte("deep Grotte", Item("Bombe", 15));
-        chosenGrotte.addMonster(Monster("Piranha", 1, 2));
-        chosenGrotte.addMonster(Monster("Piranha", 1, 2));
-        chosenGrotte.addMonster(Monster("Alligator", 18, 5));
-        chosenGrotte.addMonster(Monster("Deinosuchus", 45, 12));
+        chosenGrotte.addMonster(Monster("Piranha", 1, 1, 2));
+        chosenGrotte.addMonster(Monster("Piranha", 1, 1, 2));
+        chosenGrotte.addMonster(Monster("Alligator", 18, 18, 5));
+        chosenGrotte.addMonster(Monster("Deinosuchus", 45, 45, 12));
     }
 
     std::cout << "\nYou enter " << chosenGrotte.getName() << "!\n";

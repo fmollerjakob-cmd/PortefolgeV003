@@ -19,7 +19,7 @@ private:
     std::vector<std::string> statuses;
 
 public:
-    Monster(std::string monsterName, int monsterHp, int monsterStrength);
+    Monster(std::string monsterName, int monsterHp, int monsterMaxHp, int monsterStrength);
 
     bool isAlive();
     void print();
@@ -31,7 +31,7 @@ public:
     std::string getName();
     int getHp();
     int getStrength();
-
+    int getMaxHp();
 
     void addItem(Item item);
     void showItems();
