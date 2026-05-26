@@ -21,6 +21,7 @@ void Database::createTables()
     //Create table (If that specific table does not already exist)
     //in sqlite3 named heroes with 2 columns id and name
     std::string sql =
+    
         "CREATE TABLE IF NOT EXISTS heroes ("
         "id INTEGER PRIMARY KEY AUTOINCREMENT,"
         "name TEXT NOT NULL"
@@ -34,8 +35,15 @@ void Database::createTables()
         "maxhp INTEGER NOT NULL,"
         "strength INTEGER NOT NULL,"
         "FOREIGN KEY(hero_id) REFERENCES heroes(id)"
-        ");";
+        ");"
 
+        "CREATE TABLE IF NOT EXISTS hero_statistics ("
+        "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+        "hero_id INTEGER NOT NULL,"
+        "type TEXT NOT NULL,"
+        "value TEXT NOT NULL,"
+        "FOREIGN KEY(hero_id) REFERENCES heroes(id)"
+        ");";
     //Runs the command above, translated from string for sqlite3 to perform
     sqlite3_exec(db, sql.c_str(), NULL, NULL, NULL);
 
@@ -73,12 +81,51 @@ void Database::saveCharacter(Character& character)
         sqlite3_exec(db, sqlMonster.c_str(), NULL, NULL, NULL);
     }
 
+    
+
+    //Savig of statistics
+
+    std::string sqlDefeated =
+        "INSERT INTO hero_statistics (hero_id, type, value) VALUES (" +
+        std::to_string(heroId) + ", 'defeated_monsters', '" +
+        std::to_string(character.getDefeatedMonsterCount()) + "');";
+
+    sqlite3_exec(db, sqlDefeated.c_str(), NULL, NULL, NULL);
+
+
+    std::vector<std::string> usedItems = character.getUsedItems();
+
+    for (int i = 0; i < usedItems.size(); i++)
+    {
+        std::string sqlUsedItem =
+            "INSERT INTO hero_statistics (hero_id, type, value) VALUES (" +
+            std::to_string(heroId) + ", 'used_item', '" +
+            usedItems[i] + "');";
+
+        sqlite3_exec(db, sqlUsedItem.c_str(), NULL, NULL, NULL);
+    }
+
+
+    std::vector<std::string> itemDefeatedMonsters = character.getItemDefeatedMonsters();
+
+    for (int i = 0; i < itemDefeatedMonsters.size(); i++)
+    {
+        std::string sqlItemDefeated =
+            "INSERT INTO hero_statistics (hero_id, type, value) VALUES (" +
+            std::to_string(heroId) + ", 'item_defeated_monster', '" +
+            itemDefeatedMonsters[i] + "');";
+
+        sqlite3_exec(db, sqlItemDefeated.c_str(), NULL, NULL, NULL);
+    }
+
+
     std::cout << "Character saved to database." << std::endl;
 }
 
 void Database::clearSave()
 {
     std::string sql = 
+        "DELETE FROM hero_statistics;"
         "DELETE FROM hero_monsters;"
         "DELETE FROM heroes;";
 
@@ -162,6 +209,45 @@ bool Database::loadCharacter(Character& character)
     sqlite3_finalize(stmtMonsters);
 
     //character object with loaded name
+
+        std::string sqlStatistics =
+        "SELECT type, value FROM hero_statistics WHERE hero_id = " +
+        std::to_string(heroId) + ";";
+
+    sqlite3_stmt* stmtStatistics;
+
+    result = sqlite3_prepare_v2(db, sqlStatistics.c_str(), -1, &stmtStatistics, NULL);
+
+    if (result != SQLITE_OK)
+    {
+        std::cout << "Could not read saved statistics.\n";
+        return false;
+    }
+
+    while (sqlite3_step(stmtStatistics) == SQLITE_ROW)
+    {
+        const unsigned char* typeText = sqlite3_column_text(stmtStatistics, 0);
+        const unsigned char* valueText = sqlite3_column_text(stmtStatistics, 1);
+
+        std::string type = reinterpret_cast<const char*>(typeText);
+        std::string value = reinterpret_cast<const char*>(valueText);
+
+        if (type == "defeated_monsters")
+        {
+            loadedCharacter.setDefeatedMonsterCount(std::stoi(value));
+        }
+        else if (type == "used_item")
+        {
+            loadedCharacter.addUsedItem(value);
+        }
+        else if (type == "item_defeated_monster")
+        {
+            loadedCharacter.addItemDefeatedMonster(value);
+        }
+    }
+
+    sqlite3_finalize(stmtStatistics);
+
     character = loadedCharacter;
 
     std::cout << "Character loaded from database.\n";

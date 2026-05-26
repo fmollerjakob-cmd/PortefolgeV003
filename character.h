@@ -43,6 +43,14 @@ public:
 
     void printItemCounts(std::vector<std::string> names);
 
+    int getDefeatedMonsterCount();
+
+    std::vector<std::string> getUsedItems();
+
+    std::vector<std::string> getItemDefeatedMonsters();
+
+    void setDefeatedMonsterCount(int count);
+
 };
 
 #endif

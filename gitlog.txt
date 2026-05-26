@@ -1,0 +1,26 @@
+90517d2 (HEAD -> main, origin/main) Added available character selection
+0ac8e20 More advanced statistics implemented
+d48ecb9 basic statistics
+8c1c479 addedmaxHp to constructor for monster objects to accompany need to save maxHp in database, and altered saving and loading for this need as well
+9928334 database finally works, maxHp bug needs fixing
+1139412 Basic database structure tested
+a1b80fc backup commit, afraid it is going to crash
+ccef569 Base game done, beginning to add Database
+84bd9ae System backup, hope not crash again
+ead39e9 Changed chance based loot to level based, and implemented difficulties based on total hp
+4407558 Crash did not destroy progress
+62f445e EMERGENCY
+d6094d8 Added poisoned as status effect
+9d681a4 Items are now spend when used
+851f570 Implemented Item class and basic functionality, but actually works now
+0492224 Pointer and functionality to use all mobs when in battle
+ff8df9b Added takeMonster, which allows player to aquire defeated monsters
+2e650b1 Added choices for fighting and moved methods around for better structure
+c368443 Moved main functionality into Game class and added menu structure
+3b71524 Bug fixes and finished implementing class, will not execute by play btn, has to use commands from now on,probably due to CMakeLists.txt
+2073915 Implementation of classes, almost fully incorperated into main, but i hate myself right now
+8ae5750 I WAS WRONG, implementing monster and character class
+86ec799 Should be first iteration done :D
+5a1a135 Just adding shit
+a98eace Adding basic shit
+b43edb9 BETTER FUCKING WORK NOW

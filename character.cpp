@@ -160,3 +160,21 @@ void Character::printItemCounts(std::vector<std::string> names)
         }
     }
 }
+
+std::vector<std::string> Character::getUsedItems()
+{
+    return usedItems;
+}
+
+int Character::getDefeatedMonsterCount()
+{
+    return totalDefeatedMonsters;
+}
+std::vector<std::string> Character::getItemDefeatedMonsters()
+{
+    return itemDefeatedMonster;
+}
+void Character::setDefeatedMonsterCount(int count)
+{
+    totalDefeatedMonsters = count;
+}

@@ -1,0 +1,303 @@
+commit 90517d28f379d03dc7eac5979525f7b6925cb7ea (HEAD -> main, origin/main)
+Author: Jakob <jakob@friborgmoeller.dk>
+Date:   Sun May 24 17:40:27 2026 +0200
+
+    Added available character selection
+
+ Database.cpp | 29 +++++++++++++++++++++++++++++
+ Database.h   |  2 ++
+ Game.cpp     | 29 +++++++++++++++++++++++++++++
+ Game.h       |  2 ++
+ main.cpp     |  7 -------
+ 5 files changed, 62 insertions(+), 7 deletions(-)
+
+commit 0ac8e20ea25f9a31b503b3bd34bb310bc59b9135
+Author: Jakob <jakob@friborgmoeller.dk>
+Date:   Sun May 24 17:18:31 2026 +0200
+
+    More advanced statistics implemented
+
+ Game.cpp      | 16 ++++++++++++++++
+ character.cpp | 61 ++++++++++++++++++++++++++++++++++++++++++++++++++++++-----
+ character.h   | 18 +++++++-----------
+ 3 files changed, 79 insertions(+), 16 deletions(-)
+
+commit d48ecb97daed3bca1c535098e28880312f265d47
+Author: Jakob <jakob@friborgmoeller.dk>
+Date:   Sun May 24 16:07:03 2026 +0200
+
+    basic statistics
+
+ Game.cpp      | 12 +++++++++++-
+ character.cpp | 18 ++++++++++++++++++
+ character.h   | 18 ++++++++++++++++++
+ main.cpp      | 21 ++++-----------------
+ 4 files changed, 51 insertions(+), 18 deletions(-)
+
+commit 8c1c479c078ca026e782be4a9d326b5ac573f314
+Author: Jakob <jakob@friborgmoeller.dk>
+Date:   Sun May 24 14:33:44 2026 +0200
+
+    addedmaxHp to constructor for monster objects to accompany need to save maxHp in database, and altered saving and loading for this need as well
+
+ Database.cpp  | 36 ++++++++++++++++++++++++++++--------
+ Game.cpp      | 42 +++++++++++++++++++++---------------------
+ Monster.cpp   | 10 +++++++---
+ Monster.h     |  4 ++--
+ character.cpp |  4 ++--
+ 5 files changed, 60 insertions(+), 36 deletions(-)
+
+commit 9928334fb2af86353e1b0a0998f0c8ce9e3fa833
+Author: Jakob <jakob@friborgmoeller.dk>
+Date:   Sun May 24 13:36:34 2026 +0200
+
+    database finally works, maxHp bug needs fixing
+
+ Database.cpp | 81 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ Database.h   |  5 ++++
+ Game.cpp     | 33 +++++++++++++++++++++++--
+ Game.h       |  6 +++++
+ Monster.cpp  |  2 ++
+ Monster.h    |  1 +
+ main.cpp     |  7 +++---
+ 7 files changed, 130 insertions(+), 5 deletions(-)
+
+commit 11394124f17c0fdeeb3936248da882275e0430ff
+Author: Jakob <jakob@friborgmoeller.dk>
+Date:   Sat May 23 16:09:30 2026 +0200
+
+    Basic database structure tested
+
+ Database.cpp  | 29 +++++++++++++++++++++++++++++
+ Database.h    |  4 ++++
+ character.cpp | 10 ++++++++++
+ character.h   |  4 ++++
+ main.cpp      | 10 ++++++++--
+ 5 files changed, 55 insertions(+), 2 deletions(-)
+
+commit a1b80fc2073106272c6829161cf7d86abffdc710
+Author: Jakob <jakob@friborgmoeller.dk>
+Date:   Sat May 23 15:47:59 2026 +0200
+
+    backup commit, afraid it is going to crash
+
+ CMakeLists.txt |  7 +++++++
+ Database.cpp   | 40 ++++++++++++++++++++++++++++++++++++++++
+ Database.h     | 20 ++++++++++++++++++++
+ main.cpp       |  7 +++++++
+ 4 files changed, 74 insertions(+)
+
+commit ccef569f4c77362c1208e694d834c69556976a15
+Author: Jakob <jakob@friborgmoeller.dk>
+Date:   Sat May 23 13:33:49 2026 +0200
+
+    Base game done, beginning to add Database
+
+ Database.cpp | 0
+ Database.h   | 0
+ Game.cpp     | 4 ++++
+ 3 files changed, 4 insertions(+)
+
+commit 84bd9aec0f0c1422af126f2378434f6b8ba974fc
+Author: Jakob <jakob@friborgmoeller.dk>
+Date:   Sat May 23 13:21:08 2026 +0200
+
+    System backup, hope not crash again
+
+ Game.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit ead39e9c2eccf8975b5044b0804a5cf6a1e8d2da
+Author: Jakob <jakob@friborgmoeller.dk>
+Date:   Sat May 23 13:20:07 2026 +0200
+
+    Changed chance based loot to level based, and implemented difficulties based on total hp
+
+ Game.cpp      | 28 ++++++++++++++++++----------
+ Monster.cpp   |  3 ++-
+ character.cpp | 12 ++++++++++++
+ character.h   |  3 +++
+ 4 files changed, 35 insertions(+), 11 deletions(-)
+
+commit 44075584d485de7709530def02aeb55f377a3529
+Author: Jakob <jakob@friborgmoeller.dk>
+Date:   Sat May 23 12:56:08 2026 +0200
+
+    Crash did not destroy progress
+
+ Game.cpp | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+commit 62f445e462d7b8e53b30a927d068bbcc48efc0ae
+Author: Jakob <jakob@friborgmoeller.dk>
+Date:   Sat May 23 12:44:59 2026 +0200
+
+    EMERGENCY
+
+ CMakeLists.txt |   1 +
+ Game.cpp       | 184 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ Game.h         |   3 +
+ Grotte.cpp     |  46 +++++++++++++++
+ Grotte.h       |  31 ++++++++++
+ 5 files changed, 263 insertions(+), 2 deletions(-)
+
+commit d6094d81696586480786d8853fa79b483516c761
+Author: Jakob <jakob@friborgmoeller.dk>
+Date:   Fri May 22 17:54:19 2026 +0200
+
+    Added poisoned as status effect
+
+ Game.cpp    | 100 ++++++++++++++++++++++++++++++++++--------------------------
+ Item.cpp    |  34 +++++++++++++++++++++
+ Item.h      |  11 +++++++
+ Monster.cpp |  36 ++++++++++++++++++++++
+ Monster.h   |   6 ++++
+ 5 files changed, 143 insertions(+), 44 deletions(-)
+
+commit 9d681a47f89d3a0ee7ec444df4ba8c8c71e6e734
+Author: Jakob <jakob@friborgmoeller.dk>
+Date:   Fri May 22 16:33:14 2026 +0200
+
+    Items are now spend when used
+
+ Game.cpp    |  2 +-
+ Monster.cpp | 11 ++++++++++-
+ Monster.h   |  2 ++
+ 3 files changed, 13 insertions(+), 2 deletions(-)
+
+commit 851f570d3bcbfa114a4c993ac4705b1face6f99c
+Author: Jakob <jakob@friborgmoeller.dk>
+Date:   Fri May 22 16:10:12 2026 +0200
+
+    Implemented Item class and basic functionality, but actually works now
+
+ CMakeLists.txt |  1 +
+ Game.cpp       | 70 ++++++++++++++++++++++++++++++++++++++++++++++++++++++----
+ Item.cpp       | 17 ++++++++++++++
+ Item.h         | 19 ++++++++++++++++
+ Monster.cpp    | 23 +++++++++++++++++++
+ Monster.h      | 10 ++++++++-
+ 6 files changed, 135 insertions(+), 5 deletions(-)
+
+commit 0492224be17ecb34444748c4b80f4fe3fe08b65c
+Author: Jakob <jakob@friborgmoeller.dk>
+Date:   Fri May 22 13:10:40 2026 +0200
+
+    Pointer and functionality to use all mobs when in battle
+
+ Game.cpp | 26 ++++++++++++++++++--------
+ 1 file changed, 18 insertions(+), 8 deletions(-)
+
+commit ff8df9b36aeffe50bec4e763fafbee7eda1c94c9
+Author: Jakob <jakob@friborgmoeller.dk>
+Date:   Fri May 22 12:33:56 2026 +0200
+
+    Added takeMonster, which allows player to aquire defeated monsters
+
+ Game.cpp    | 45 +++++++++++++++++++++++++++++++++++++++++++++
+ Game.h      |  1 +
+ Monster.cpp |  5 +++++
+ Monster.h   |  3 +++
+ 4 files changed, 54 insertions(+)
+
+commit 2e650b1890d03608e5f0c0615214ef1a9009a8ff
+Author: Jakob <jakob@friborgmoeller.dk>
+Date:   Fri May 22 12:10:53 2026 +0200
+
+    Added choices for fighting and moved methods around for better structure
+
+ Game.cpp | 123 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++------
+ main.cpp |   2 +-
+ 2 files changed, 114 insertions(+), 11 deletions(-)
+
+commit c36844325c69679ba5229b8629df36da5f0656f4
+Author: Jakob <jakob@friborgmoeller.dk>
+Date:   Fri May 22 11:44:15 2026 +0200
+
+    Moved main functionality into Game class and added menu structure
+
+ CMakeLists.txt |  1 +
+ Game.cpp       | 98 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ Game.h         | 29 +++++++++++++++++
+ character.h    |  7 ++++-
+ main.cpp       | 89 +++-------------------------------------------------
+ 5 files changed, 139 insertions(+), 85 deletions(-)
+
+commit 3b71524486849cdc57cbcf52b38af3787590531d
+Author: Jakob <jakob@friborgmoeller.dk>
+Date:   Fri May 22 10:15:52 2026 +0200
+
+    Bug fixes and finished implementing class, will not execute by play btn, has to use commands from now on,probably due to CMakeLists.txt
+
+ CMakeLists.txt |   8 +++++++-
+ Monster.h      |  18 +++++++-----------
+ character.cpp  |  13 +++++++++++++
+ main           | Bin 83752 -> 0 bytes
+ main.cpp       |  57 +++++++++++++++++++++++++++++++--------------------------
+ 5 files changed, 58 insertions(+), 38 deletions(-)
+
+commit 2073915d9663842edb663631dbfe26f5e46be074
+Author: Jakob <jakob@friborgmoeller.dk>
+Date:   Fri May 22 01:51:56 2026 +0200
+
+    Implementation of classes, almost fully incorperated into main, but i hate myself right now
+
+ Monster.cpp   | 32 ++++++++++++++++++++++++++++++++
+ Monster.h     | 17 ++++++++++++++++-
+ character.cpp | 46 +++++++++++++++++++++++++++++++++++++++-------
+ character.h   |  7 ++++++-
+ main.cpp      | 10 ++++++----
+ 5 files changed, 99 insertions(+), 13 deletions(-)
+
+commit 8ae5750b74346d471a3c91c2c2651d81669ba453
+Author: Jakob <jakob@friborgmoeller.dk>
+Date:   Fri May 22 01:01:22 2026 +0200
+
+    I WAS WRONG, implementing monster and character class
+
+ Monster.cpp   | 27 +++++++++++++++++++++++++++
+ Monster.h     | 17 +++++++++++++++++
+ character.cpp | 26 ++++++++++++++++++++++++++
+ character.h   | 17 +++++++++++++++++
+ 4 files changed, 87 insertions(+)
+
+commit 86ec79941b6becd499a3b88cf326f195c2b1d44d
+Author: Jakob <jakob@friborgmoeller.dk>
+Date:   Thu May 21 22:38:43 2026 +0200
+
+    Should be first iteration done :D
+
+ main     | Bin 0 -> 83752 bytes
+ main.cpp |  93 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++----
+ 2 files changed, 88 insertions(+), 5 deletions(-)
+
+commit 5a1a135ad14600b8648150f6f70e56d2e9203c18
+Author: Jakob <jakob@friborgmoeller.dk>
+Date:   Thu May 21 21:48:53 2026 +0200
+
+    Just adding shit
+
+ CMakeLists.txt | 8 ++++++++
+ main.cpp       | 6 +++++-
+ 2 files changed, 13 insertions(+), 1 deletion(-)
+
+commit a98eace3a4f1711527aacd78a9da3bb1808eee65
+Author: Jakob <jakob@friborgmoeller.dk>
+Date:   Thu May 21 21:43:57 2026 +0200
+
+    Adding basic shit
+
+ main.cpp | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+commit b43edb9f97d9370b877594b53c14c55f3bef85ff
+Author: Jakob <jakob@friborgmoeller.dk>
+Date:   Thu May 21 21:36:26 2026 +0200
+
+    BETTER FUCKING WORK NOW
+
+ .gitignore     | 3 +++
+ CMakeLists.txt | 0
+ README.md      | 1 +
+ main.cpp       | 0
+ 4 files changed, 4 insertions(+)
