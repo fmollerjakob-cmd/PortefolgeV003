@@ -119,7 +119,7 @@ void Database::saveCharacter(Character& character)
     }
 
 
-    std::cout << "Character saved to database. BUT THIS IS A MERGE CONFLICT!" << std::endl;
+    std::cout << "Character saved to database." << std::endl;
 }
 
 void Database::clearSave()
